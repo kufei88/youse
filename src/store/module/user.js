@@ -5,7 +5,9 @@ import {
 } from '@/api/user'
 import {
   setToken,
-  getToken
+  getToken,
+  setAccess,
+  getAccess
 } from '@/libs/util'
 
 export default {
@@ -14,7 +16,7 @@ export default {
     userId: '',
     avatorImgPath: '',
     token: getToken(),
-    access: '',
+    access: getAccess(),
     hasGetInfo: false
   },
   mutations: {
@@ -29,6 +31,7 @@ export default {
     },
     setAccess(state, access) {
       state.access = access
+      setAccess(access)
     },
     setToken(state, token) {
       state.token = token

@@ -9,6 +9,7 @@ import {
 
 
 export const TOKEN_KEY = 'token'
+export const ACCESS_KEY = 'access'
 
 export const setToken = (token) => {
   Cookies.set(TOKEN_KEY, token, {
@@ -20,6 +21,25 @@ export const getToken = () => {
   const token = Cookies.get(TOKEN_KEY)
   if (token) return token
   else return false
+}
+
+export const setAccess = (access) => {
+  Cookies.set(ACCESS_KEY, access, {
+    expires: config.cookieExpires || 1
+  })
+}
+
+export const getAccess = () => {
+  const access = Cookies.get(ACCESS_KEY)
+  if (access) return access
+  else return false
+}
+
+export const getAdmin = () =>{
+  const token = Cookies.get(TOKEN_KEY)
+  return token == '系统维护员'
+
+  
 }
 
 export const hasChild = (item) => {

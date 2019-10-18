@@ -50,7 +50,7 @@ export default [{
     component: Main,
     meta: {
       icon: 'md-settings',
-      title: '系统设置管理',
+      title: '系统设置',
       access:['2'],
       notCache: true
     },
@@ -64,6 +64,26 @@ export default [{
       },
       component: () =>
         import('@/view/setting/setting.vue')
+    },{
+      path: '/defaultSetting',
+      name: 'defaultSetting',
+      meta: {
+        icon: 'md-settings',
+        title: '特殊提成设置',
+        notCache: true
+      },
+      component: () =>
+        import('@/view/defaultSetting/defaultSetting.vue')
+    },{
+      path: '/rob_list',
+      name: 'rob_list',
+      meta: {
+        icon: 'ios-list',
+        title: '竞标列表',
+        notCache: true
+      },
+      component: () =>
+        import('@/view/rob_list/rob_list.vue')
     }]
   },
   {
@@ -71,8 +91,8 @@ export default [{
     name: 'query',
     component: Main,
     meta: {
-      icon: 'md-flag',
-      title: '当月系数'
+      icon: 'ios-pie-outline',
+      title: '报表'
     },
     children: [{
       path: '/factor_query',
@@ -83,8 +103,37 @@ export default [{
       },
       component: () =>
         import('@/view/factor_query/factor_query.vue')
-    }]
+    },{
+        path: '/lately_query',
+        name: 'lately_query',
+        meta: {
+          icon: 'ios-pulse',
+          title: '客户最近业绩'  
+        },
+        component: () =>
+          import('@/view/lately_query/lately_query.vue')
+      },{
+        path: '/robPool',
+        name: 'robPool',
+        meta: {
+          icon: 'ios-ribbon-outline',
+          title: '抢夺池'  
+        },
+        component: () =>
+          import('@/view/robPool/robPool.vue')
+      },{
+        path: '/rob_result',
+        name: 'rob_result',
+        meta: {
+          icon: 'ios-list',
+          title: '开标',
+          notCache: true
+        },
+        component: () =>
+          import('@/view/rob_result/rob_result.vue')
+      }]
   },
+  
   {
     path: '/401',
     name: 'error_401',
