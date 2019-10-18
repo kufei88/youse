@@ -301,9 +301,10 @@ export default {
     this.month =
       now.getFullYear() +
       "-" +
-      (now.getMonth() + 1 > 10
-        ? now.getMonth() + 1
-        : "0" + (now.getMonth() + 1));
+      ((now.getMonth() + 1) > 9
+        ? (now.getMonth() + 1)
+        : ("0" + (now.getMonth() + 1)));
+        console.log(now.getMonth() + 1);
     this.getFactorList();
     let token = getToken();
     console.log(token);

@@ -19,7 +19,6 @@
           style="margin-rignt:30px"
         >{{closeAccount}}</Button>
       </Col>
-      
     </Row>
 
     <Row style="margin-top:10px">
@@ -53,7 +52,7 @@
                 <InputNumber size="small" v-model="item1.target" style="width:60px"></InputNumber>
               </Col>
               <Col span="4" v-show="item.dept!='销售经理'&&item.dept!='审核员'">
-                <i-switch v-model="item1.leader"/>
+                <i-switch v-model="item1.leader" />
               </Col>
             </Row>
           </Card>
@@ -103,10 +102,9 @@
               <InputNumber :max="100" :min="0" v-model="argu.deduct"></InputNumber>%
             </FormItem>
             <FormItem label="工资基准:">
-              <InputNumber  :min="0" v-model="argu.salary"></InputNumber>
+              <InputNumber :min="0" v-model="argu.salary"></InputNumber>
             </FormItem>
           </Form>
-          
         </Card>
       </div>
     </Row>
@@ -153,21 +151,19 @@ export default {
       showImg: false,
       type: 0,
       oldId: 0,
-      label1:'系数',
-      label2:'',
+      label1: "系数",
+      label2: "",
       month: "",
-      argu:{},
+      argu: {},
       copyList: [],
       copyMonth: "",
-      monthList: [
-        
-      ],
+      monthList: [],
       oldPerfor: "",
       performanceLabel: "",
       formItem: {
         performance: "",
         factor: "",
-        factor_1:""
+        factor_1: ""
       },
       ruleValidate: {
         performance: [
@@ -189,7 +185,7 @@ export default {
         ]
       },
       factorList: [],
-      managerFactorList:[],
+      managerFactorList: [],
       columns1: [
         {
           title: "业绩",
@@ -302,16 +298,16 @@ export default {
     };
   },
   mounted: function() {
-    for(let i=2019;i<2025;i++){
-      for(let j=1;j<13;j++){
-        this.monthList.push({value:i+"-"+(j<10?'0'+j:j)})
+    for (let i = 2019; i < 2025; i++) {
+      for (let j = 1; j < 13; j++) {
+        this.monthList.push({ value: i + "-" + (j < 10 ? "0" + j : j) });
       }
     }
     let now = new Date();
     this.month =
       now.getFullYear() +
       "-" +
-      (now.getMonth() + 1 > 10
+      (now.getMonth() + 1 > 9
         ? now.getMonth() + 1
         : "0" + (now.getMonth() + 1));
     this.getFactorList();
@@ -319,34 +315,34 @@ export default {
     console.log(token);
   },
   methods: {
-    copyClick(){
+    copyClick() {
       let _this = this;
-      if(this.copyMonth == ''){
+      if (this.copyMonth == "") {
         this.$Message.info("复制的账期不能为空");
         return;
       }
-      if(this.month == this.copyMonth){
+      if (this.month == this.copyMonth) {
         this.$Message.info("不能复制自己");
         return;
       }
       axios
-            .request({
-              url: "manager/saveCopyFactor",
-              params: {
-                period:this.month,
-                sourcePeriod:this.copyMonth
-              },
-              method: "post"
-            })
-            .then(function(response) {
-              if (response.data > 0) {
-                _this.$Message.info("复制成功");
-                
-                _this.getFactorList();
-              } else  {
-                _this.$Message.info("复制失败");
-              }
-            });
+        .request({
+          url: "manager/saveCopyFactor",
+          params: {
+            period: this.month,
+            sourcePeriod: this.copyMonth
+          },
+          method: "post"
+        })
+        .then(function(response) {
+          if (response.data > 0) {
+            _this.$Message.info("复制成功");
+
+            _this.getFactorList();
+          } else {
+            _this.$Message.info("复制失败");
+          }
+        });
     },
     ok(name) {
       this.$refs[name].validate(valid => {
@@ -502,8 +498,6 @@ export default {
           _this.factorList = response.data;
         });
 
-      
-
       axios
         .request({
           url: "manager/getPerformanceFactorList",
@@ -557,22 +551,21 @@ export default {
       axios
         .request({
           url: "manager/getArguByPeriod",
-          params: {period:this.month},
+          params: { period: this.month },
           method: "get"
         })
         .then(function(response) {
-
           _this.argu = response.data;
         });
     },
-    saveArgu(){
+    saveArgu() {
       this.argu.period = this.month;
       let _this = this;
       axios
         .request({
           url: "manager/saveArgu",
           params: {
-            json:this.argu
+            json: this.argu
           },
           method: "post"
         })
@@ -586,7 +579,10 @@ export default {
       for (let i = 0; i < this.factorList.length - 2; i++) {
         let count = 0;
         for (let j = 0; j < this.factorList[i].list.length; j++) {
-          if (this.factorList[i].list[j].target > 0&&this.factorList[i].list[j].target < 30) {
+          if (
+            this.factorList[i].list[j].target > 0 &&
+            this.factorList[i].list[j].target < 30
+          ) {
             this.$Message.info(
               this.factorList[i].list[j].name + "的任务目标不能小于30w"
             );
